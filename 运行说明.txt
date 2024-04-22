@@ -1,0 +1,43 @@
+函数入口在Main.m中，可修改参数为：
+run：独立运行次数，pop：种群大小，gen:迭代次数
+在LEKT.m中可以修改聚类数和交流的任务数
+K = 5;聚类数
+knowledge_task_num = 5; 从其他knowledge_task_num中学习知识
+
+当运行两个任务数据集时，Main.m修改为
+clear
+warning off
+pop=200; % population size原为5000
+gen=1000; % generation
+rmp=0.3; % random mating probability
+% for run=1 : 3 %running times，原来为20
+%     for index = 1:10%problem index
+run=3;
+index=9;
+%         Tasks = benchmark(index);
+% for index=1:9
+Tasks =benchmark1(index);
+data_EMaTOTKT{index}= EMaTOMKT(Tasks,pop,gen,run);
+% end
+%          data_EMaTOTKT{index}= EMaTOMKT(Tasks,pop,gen,run);
+        
+%     end
+% end
+save('data_EMaTOTKT','data_EMaTOTKT');
+其中修改index即可将改变对比的两个任务类别
+
+当运行十个任务数据集时，Main.m修改为
+
+
+
+
+主要的.m文件说明
+rbf_dot.m计算高斯核函数的内积
+my_mmd计算任务间最大均值差异
+LEKT.m进行聚类计算
+fnceval.m进行函数值的计算
+Evolve.m 进行任务间知识转移生成后代还包括任务内自我进化的交叉和变异函数
+benchmark.m是任务函数的定义，包括任务函数的上下界等信息
+EMaTOMKT是项目的主体逻辑部分，调用各种函数得到最终多任务的计算结果
+Chromosome.m对任务进行定义，包括任务结构体，任务初始化，任务评估，任务交叉和变异
+其余m文件就是任务函数的定义
